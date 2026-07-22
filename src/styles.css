@@ -1,0 +1,202 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Cormorant Garamond", "Playfair Display", serif;
+  --font-sans: "DM Sans", "Lato", system-ui, sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-amber: var(--amber);
+  --color-gold-foreground: var(--gold-foreground);
+
+  --color-primary: var(--gold);
+  --color-primary-foreground: var(--gold-foreground);
+
+  --color-rare: var(--rare);
+  --color-common: var(--common);
+  --color-danger: var(--danger);
+}
+
+:root {
+  --background: oklch(0.14 0 0);
+  --foreground: oklch(0.97 0.005 80);
+  --surface: oklch(0.18 0.005 60);
+  --surface-2: oklch(0.22 0.008 60);
+  --card: oklch(0.18 0.005 60);
+  --card-foreground: oklch(0.97 0.005 80);
+  --muted: oklch(0.24 0.006 60);
+  --muted-foreground: oklch(0.65 0.02 70);
+  --border: oklch(0.28 0.01 70);
+  --input: oklch(0.22 0.008 60);
+  --ring: oklch(0.78 0.14 80);
+
+  --gold: oklch(0.78 0.14 80);
+  --gold-bright: oklch(0.88 0.16 90);
+  --amber: oklch(0.7 0.16 65);
+  --gold-foreground: oklch(0.12 0 0);
+
+  --rare: oklch(0.65 0.22 30);
+  --common: oklch(0.55 0.01 70);
+  --danger: oklch(0.62 0.22 25);
+
+  --shadow-gold: 0 10px 40px -10px oklch(0.78 0.14 80 / 0.45);
+  --gradient-gold: linear-gradient(135deg, oklch(0.88 0.16 90), oklch(0.7 0.16 65));
+  --gradient-vault: linear-gradient(180deg, oklch(0.14 0 0 / 0.4) 0%, oklch(0.1 0 0 / 0.95) 100%);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Match WebGuard VPN: sticky header height + full-viewport hero */
+.hero-section.section-gold-shade {
+  overflow: visible;
+}
+
+.hero-section .hero-container {
+  min-height: calc(100vh - 4.5rem);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*
+ * Hero phone overlap: half of the scan (back) image stays visible.
+ * Same height unit for both phones so zoom keeps a stable 50/50 split.
+ */
+.hero-phone-stack {
+  --hero-phone-h: min(74vh, 620px);
+  --hero-phone-ratio: 0.667; /* ~1080/1620 */
+  position: relative;
+  height: var(--hero-phone-h);
+  width: calc(var(--hero-phone-h) * var(--hero-phone-ratio) * 1.5);
+  max-height: calc(100vh - 8rem);
+  margin-right: 0;
+  flex-shrink: 0;
+}
+
+.hero-phone-stack .hero-phone-back,
+.hero-phone-stack .hero-phone-front {
+  position: absolute;
+  bottom: 0;
+  width: auto;
+  display: block;
+}
+
+.hero-phone-stack .hero-phone-back {
+  left: 0;
+  z-index: 0;
+  height: 92%;
+}
+
+.hero-phone-stack .hero-phone-front {
+  right: 0;
+  z-index: 10;
+  height: 100%;
+}
+
+/* Soft golden washes for every section */
+.section-gold-shade {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.section-gold-shade::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 15% 0%, oklch(0.78 0.14 80 / 0.09), transparent 55%),
+    radial-gradient(ellipse 55% 45% at 90% 100%, oklch(0.7 0.16 65 / 0.07), transparent 50%),
+    linear-gradient(180deg, oklch(0.78 0.14 80 / 0.03), transparent 40%, oklch(0.78 0.14 80 / 0.025));
+}
+
+.section-gold-shade > * {
+  position: relative;
+  z-index: 1;
+}
+
+.section-gold-shade-alt::before {
+  background:
+    radial-gradient(ellipse 65% 50% at 85% 10%, oklch(0.78 0.14 80 / 0.1), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 10% 90%, oklch(0.7 0.16 65 / 0.08), transparent 50%),
+    linear-gradient(180deg, transparent, oklch(0.78 0.14 80 / 0.04), transparent);
+}
+
+@layer utilities {
+  .text-gold { color: var(--gold); }
+  .text-gold-bright { color: var(--gold-bright); }
+  .bg-gold { background-color: var(--gold); }
+  .bg-gradient-gold { background-image: var(--gradient-gold); }
+  .bg-gradient-vault { background-image: var(--gradient-vault); }
+  .shadow-gold { box-shadow: var(--shadow-gold); }
+  .border-gold { border-color: var(--gold); }
+
+  .glow-gold {
+    box-shadow: 0 0 24px oklch(0.78 0.14 80 / 0.5), 0 0 60px oklch(0.7 0.16 65 / 0.3);
+  }
+
+  .text-gradient-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px oklch(0.78 0.14 80 / 0.4), 0 0 40px oklch(0.7 0.16 65 / 0.2); }
+    50% { box-shadow: 0 0 40px oklch(0.78 0.14 80 / 0.8), 0 0 80px oklch(0.7 0.16 65 / 0.5); }
+  }
+  .animate-pulse-glow { animation: pulse-glow 2.4s ease-in-out infinite; }
+
+  @keyframes ring-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.06); opacity: 0.5; }
+  }
+  .animate-ring-pulse { animation: ring-pulse 2s ease-in-out infinite; }
+
+  @keyframes spin-slow {
+    to { transform: rotate(360deg); }
+  }
+  .animate-spin-slow { animation: spin-slow 3s linear infinite; }
+}

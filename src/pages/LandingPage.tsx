@@ -399,8 +399,8 @@ export default function LandingPage() {
       <section className="relative hero-section section-gold-shade overflow-x-hidden">
         <div className="absolute inset-0 bg-gradient-vault pointer-events-none" />
         <div className="hero-container relative z-10 mx-auto max-w-7xl w-full">
-          <div className="grid lg:grid-cols-3 gap-8 place-items-center pt-6 md:pt-0 w-full">
-            <div className="lg:col-span-2 min-w-0 w-full max-w-2xl justify-self-center lg:justify-self-start text-center lg:text-left flex flex-col items-center lg:items-start">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 xl:gap-12 items-center pt-6 md:pt-0 w-full min-w-0">
+            <div className="relative z-20 min-w-0 w-full max-w-xl justify-self-center lg:justify-self-start text-center lg:text-left flex flex-col items-center lg:items-start">
               <div className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 backdrop-blur-sm px-5 py-2 text-sm font-medium text-gold mb-8">
                 <span className="w-1.5 h-1.5 rounded-full bg-gold" />
                 Trusted by collectors worldwide
@@ -436,30 +436,33 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="relative flex items-end justify-center lg:justify-end place-self-center lg:place-self-end min-w-0 w-full pr-0 sm:pr-1 lg:pr-2 pb-6 lg:pb-8">
+            <div className="relative z-10 flex items-end justify-center lg:justify-end place-self-center lg:place-self-end min-w-0 w-full max-w-full pr-0 lg:pr-1 pb-4 lg:pb-6">
               <div className="absolute inset-0 -inset-x-10 -inset-y-10 bg-gold/10 rounded-full blur-3xl -z-10 pointer-events-none" />
-              {/* Mobile: centered single phone */}
+              {/* Mobile: tall clear single phone */}
               <div className="sm:hidden flex justify-center w-full">
                 <img
                   src={shotHome}
                   alt="Coin Detective app"
                   draggable={false}
-                  className="h-[min(62vh,520px)] w-auto rounded-[2rem] border border-border/40 shadow-2xl shadow-black/50 bg-black object-contain select-none pointer-events-none"
+                  decoding="async"
+                  className="h-[min(72vh,600px)] w-auto max-w-[min(100%,320px)] rounded-[2rem] shadow-2xl shadow-black/50 object-contain select-none pointer-events-none"
                 />
               </div>
-              {/* Desktop: half scan peek / half covered */}
-              <div className="hero-phone-stack hidden sm:block mr-0">
+              {/* Desktop: tall full-screen shots, sharp, stay in column */}
+              <div className="hero-phone-stack hidden sm:block">
                 <img
                   src={shotCamera}
                   alt="Coin Detective camera scanner"
                   draggable={false}
-                  className="hero-phone-back rounded-[2rem] shadow-2xl shadow-black/40 border border-border/20 bg-black object-contain select-none pointer-events-none opacity-95"
+                  decoding="async"
+                  className="hero-phone-back rounded-[2rem] shadow-2xl shadow-black/40 object-contain select-none pointer-events-none"
                 />
                 <img
                   src={shotHome}
                   alt="Coin Detective home"
                   draggable={false}
-                  className="hero-phone-front rounded-[2rem] md:rounded-[2.25rem] shadow-2xl shadow-black/50 border border-border/40 bg-black object-contain select-none pointer-events-none"
+                  decoding="async"
+                  className="hero-phone-front rounded-[2rem] md:rounded-[2.25rem] shadow-2xl shadow-black/50 object-contain select-none pointer-events-none"
                 />
               </div>
             </div>
@@ -774,11 +777,6 @@ export default function LandingPage() {
               <li>
                 <a href="#support" className="hover:text-gold">
                   FAQ
-                </a>
-              </li>
-              <li>
-                <a href="mailto:support@coindetective.app" className="hover:text-gold">
-                  Contact Us
                 </a>
               </li>
             </ul>

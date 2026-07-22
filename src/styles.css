@@ -1,5 +1,4 @@
-@import "tailwindcss" source(none);
-@source "../src";
+@import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -98,36 +97,48 @@
 }
 
 /*
- * Hero phone overlap: half of the scan (back) image stays visible.
- * Same height unit for both phones so zoom keeps a stable 50/50 split.
+ * Hero phones — always half camera peek / half under home (zoom-safe).
+ * Keep stack perfectly square (width capped same as height limits).
+ * Front starts at 33.33% so exactly half of the camera stays visible.
  */
 .hero-phone-stack {
-  --hero-phone-h: min(74vh, 620px);
-  --hero-phone-ratio: 0.667; /* ~1080/1620 */
+  --phone-w: 66.6667%;
+  --peek: 33.3333%;
   position: relative;
-  height: var(--hero-phone-h);
-  width: calc(var(--hero-phone-h) * var(--hero-phone-ratio) * 1.5);
-  max-height: calc(100vh - 8rem);
+  width: min(100%, 34rem, 85vh, 760px);
+  aspect-ratio: 1 / 1;
+  height: auto;
   margin-right: 0;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  min-width: 0;
+  background: transparent;
 }
 
 .hero-phone-stack .hero-phone-back,
 .hero-phone-stack .hero-phone-front {
   position: absolute;
   bottom: 0;
-  width: auto;
+  width: var(--phone-w);
   display: block;
+  object-fit: contain;
+  object-position: center center;
+  background: transparent;
+  border: none;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .hero-phone-stack .hero-phone-back {
   left: 0;
   z-index: 0;
-  height: 92%;
+  /* Match front box aspect — removes left/right letterbox strip */
+  height: 100%;
 }
 
 .hero-phone-stack .hero-phone-front {
-  right: 0;
+  /* Anchored at half of back phone — does not drift on zoom */
+  left: var(--peek);
+  right: auto;
   z-index: 10;
   height: 100%;
 }
